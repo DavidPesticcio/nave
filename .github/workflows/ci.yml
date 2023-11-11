@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         platform:
-        - os: ubuntu-20.04
+        - os: self-hosted
       fail-fast: false
 
     runs-on: ${{ matrix.platform.os }}
