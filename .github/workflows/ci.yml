@@ -7,7 +7,7 @@ jobs:
     strategy:
       matrix:
         platform:
-        - os: macos-latest
+        - os: ubuntu-latest
       fail-fast: false
 
     runs-on: ${{ matrix.platform.os }}
@@ -18,19 +18,8 @@ jobs:
 
       - name: install deps
         run: |
-          brew install tree || true
-          brew install kcov || true
           sudo apt-get install -y kcov || true
           sudo apt-get install -y tree || true
 
       - name: Run Tests
         run: COV=1 bash test/run.sh
-
-      - name: Deploy coverage report
-        if: ${{ matrix.platform.os }} == 'macos-latest'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage-all
-          user_name: 'nave-kcov-actions-bot'
-          user_email: 'nave-kcov-actions-bot@example.com'
